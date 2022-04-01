@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import './styles/App.css';
 import GeneralInfo from './components/GeneralInfo';
+import Education from './components/Education';
 
 class App extends Component {
-  submitData = (e) => {
-    e.preventDefault();
-  };
-
   render() {
     return (
-      <form>
+      <div>
         <GeneralInfo />
-        <button onClick={this.submitData} type="submit">
-          Submit
-        </button>
-      </form>
+        <Education />
+      </div>
     );
   }
 }
