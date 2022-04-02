@@ -7,6 +7,24 @@
 .plus-sign:hover {
   animation: rotation 1s infinite linear;
   color: rgb(242, 204, 155);
+  cursor: pointer;
+}
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.add-exp {
+  width: 2rem;
+  height: 2rem;
+  color: rgb(50, 120, 255);
+}
+
+.add-exp:hover {
+  animation: rotation 1s infinite linear;
+  cursor: pointer;
+  color: rgb(70, 140, 255);
 }
 
 @keyframes rotation {
@@ -18,7 +36,7 @@
   }
 }
 
-.hide {
-  opacity: 0;
-  pointer-events: none;
+.trash {
+  color: red;
+  cursor: pointer;
 }

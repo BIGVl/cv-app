@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faXmark, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import '../styles/App.css';
+import uniqid from 'uniqid';
 
 class Education extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class Education extends Component {
 
   //It opens a modal that let's the user input a school or college that he went to
   openModal = (e) => {
-    this.setState({ hidden: '' });
+    if (this.state.hidden === '') this.setState({ hidden: 'hide' });
+    else this.setState({ hidden: '' });
   };
 
   closeModal = () => {
@@ -34,12 +36,21 @@ class Education extends Component {
     const { school, study, start, end, display } = this.state;
     e.preventDefault();
     this.setState({
-      display: display.concat({ school: school, study: study, start: start, end: end }),
+      display: display.concat({ school: school, study: study, start: start, end: end, uniqid: uniqid() }),
       hidden: 'hide',
       school: '',
       study: '',
       start: '',
       end: ''
+    });
+  };
+
+  delete = (e) => {
+    this.setState({
+      display: this.state.display.filter((school) => {
+        console.log(e.target.id, e.target.parentElement.id);
+        return school.uniqid !== e.target.id && school.uniqid !== e.target.parentElement.id;
+      })
     });
   };
 
@@ -53,20 +64,20 @@ class Education extends Component {
           <fieldset>
             <legend>Add your education : </legend>
             <label htmlFor="school">High-School/College: </label>
-            <input type="text" id="school" name="school" value={school} onChange={this.change} />
+            <input type="text" id="school" name="school" value={school} required onChange={this.change} />
             <br />
             <label htmlFor="title">Title of study:</label>
-            <input type="text" id="title" name="study" value={study} onChange={this.change} />
+            <input type="text" id="title" name="study" value={study} required onChange={this.change} />
             <br />
             <label htmlFor="start-date"> Start date: </label>
-            <input type="date" name="start" value={start} id="start-date" onChange={this.change} />
+            <input type="date" name="start" value={start} id="start-date" required onChange={this.change} />
             <label htmlFor="end-date">End date: </label>
-            <input type="date" name="end" value={end} id="end-date" onChange={this.change} />
+            <input type="date" name="end" value={end} id="end-date" required onChange={this.change} />
             <br />
             <button type="submit">Add</button>
           </fieldset>
         </form>
-        <SchoolAdded schools={this.state.display} />
+        <SchoolAdded schools={display} delete={this.delete} />
       </div>
     );
   }
@@ -80,12 +91,13 @@ class SchoolAdded extends Component {
       <div>
         {this.props.schools.map((school, i) => {
           return (
-            <li key={i}>
+            <div>
               <div>{school.school}</div>
               <div>{school.study}</div>
               <div>{school.start} </div>
               <div>{school.end} </div>
-            </li>
+              <FontAwesomeIcon icon={faTrashCan} id={school.uniqid} className="trash" onClick={this.props.delete} />
+            </div>
           );
         })}
       </div>
