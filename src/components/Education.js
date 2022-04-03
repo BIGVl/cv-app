@@ -48,7 +48,6 @@ class Education extends Component {
   delete = (e) => {
     this.setState({
       display: this.state.display.filter((school) => {
-        console.log(e.target.id, e.target.parentElement.id);
         return school.uniqid !== e.target.id && school.uniqid !== e.target.parentElement.id;
       })
     });
@@ -57,9 +56,9 @@ class Education extends Component {
   render() {
     const { school, study, start, end, display } = this.state;
     return (
-      <div>
+      <div className="education-container">
         <FontAwesomeIcon className="plus-sign" icon={faCirclePlus} onClick={this.openModal} />
-        <form className={this.state.hidden} action="" onSubmit={this.submit}>
+        <form className={this.state.hidden} id="to-hide" action="" onSubmit={this.submit}>
           <FontAwesomeIcon icon={faXmark} onClick={this.closeModal} />
           <fieldset>
             <legend>Add your education : </legend>
@@ -74,10 +73,14 @@ class Education extends Component {
             <label htmlFor="end-date">End date: </label>
             <input type="date" name="end" value={end} id="end-date" required onChange={this.change} />
             <br />
-            <button type="submit">Add</button>
+            <button type="submit" className="submit">
+              Add
+            </button>
           </fieldset>
         </form>
-        <SchoolAdded schools={display} delete={this.delete} />
+        <div>
+          <SchoolAdded schools={display} delete={this.delete} />
+        </div>
       </div>
     );
   }
@@ -91,11 +94,12 @@ class SchoolAdded extends Component {
       <div>
         {this.props.schools.map((school, i) => {
           return (
-            <div>
-              <div>{school.school}</div>
-              <div>{school.study}</div>
-              <div>{school.start} </div>
-              <div>{school.end} </div>
+            <div className="display-education-container">
+              <div>
+                School: {school.school}, {school.study}
+              </div>
+              <div>Started on: {school.start} </div>
+              <div>Ended on: {school.end} </div>
               <FontAwesomeIcon icon={faTrashCan} id={school.uniqid} className="trash" onClick={this.props.delete} />
             </div>
           );

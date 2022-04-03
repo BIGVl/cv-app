@@ -60,7 +60,7 @@ class Experience extends Component {
     return (
       <div>
         <FontAwesomeIcon className="add-exp" icon={faCirclePlus} onClick={this.openModal} />
-        <form action="" className={this.state.hidden} onSubmit={this.submit}>
+        <form action="" className={this.state.hidden} id="to-hide" onSubmit={this.submit}>
           <FontAwesomeIcon className="close-exp" icon={faXmark} onClick={this.closeModal} />
           <fieldset>
             <legend>Add a previous job: </legend>
@@ -84,7 +84,9 @@ class Experience extends Component {
             </button>
           </fieldset>
         </form>
-        <Jobs jobs={this.state.display} delete={this.delete} />
+        <div className="display-experience-container">
+          <Jobs jobs={this.state.display} delete={this.delete} />
+        </div>
       </div>
     );
   }
@@ -98,12 +100,12 @@ class Jobs extends Component {
       <div>
         {this.props.jobs.map((job) => {
           return (
-            <div key={job.uniqid}>
-              <div>{job.company}</div>
-              <div>{job.job} </div>
-              <div>{job.description}</div>
-              <div>{job.start} </div>
-              <div>{job.end} </div>
+            <div key={job.uniqid} className="display-experience-container">
+              <div>Company name: {job.company}</div>
+              <div>Job title: {job.job} </div>
+              <div>Description: {job.description}</div>
+              <div>Started on: {job.start} </div>
+              <div>Ended on: {job.end} </div>
               <FontAwesomeIcon icon={faTrashCan} className="trash" onClick={this.props.delete} id={job.uniqid} />
             </div>
           );

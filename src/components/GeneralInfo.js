@@ -39,8 +39,8 @@ class GeneralInfo extends Component {
     const { firstName, lastName, email, phone, display } = this.state;
     if (this.state.editing === true) {
       return (
-        <form onSubmit={this.submit}>
-          <fieldset>
+        <form onSubmit={this.submit} className="general-info-form">
+          <fieldset className="general-info-fieldset">
             <legend>Provide your contact information: </legend>
             <label htmlFor="first-name">First name:</label>
             <input
@@ -54,7 +54,15 @@ class GeneralInfo extends Component {
             />
             <br />
             <label htmlFor="last-name">Last name: </label>
-            <input id="last-name" name="lastName" type="text" value={lastName} required onChange={this.change} />
+            <input
+              spellCheck="false"
+              id="last-name"
+              name="lastName"
+              type="text"
+              value={lastName}
+              required
+              onChange={this.change}
+            />
             <br />
             <label htmlFor="mail">Email: </label>
             <input id="mail" name="email" type="email" value={email} required onChange={this.change} />
@@ -62,7 +70,9 @@ class GeneralInfo extends Component {
             <label htmlFor="phone">Phone number: </label>
             <input id="phone" name="phone" type="tel" required value={phone} onChange={this.change} />
             <br />
-            <button type="submit">Submit</button>
+            <button className="submit" type="submit">
+              Submit
+            </button>
           </fieldset>
         </form>
       );
@@ -70,8 +80,8 @@ class GeneralInfo extends Component {
       return (
         <div className="general-info-container">
           <div className="display-full-name">{display.fullName}</div>
-          <div className="display-email">{display.email} </div>
-          <div className="display-phone">{display.phone} </div>
+          <div className="display-email">Email: {display.email} </div>
+          <div className="display-phone">Phone number: {display.phone} </div>
           <button className="edit" onClick={this.edit}>
             Edit
           </button>
