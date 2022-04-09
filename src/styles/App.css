@@ -87,7 +87,8 @@ form {
 }
 
 legend {
-  background-color: #eec584;
+  background-color: #c8ab83;
+  border-radius: 25px;
 }
 
 fieldset {
@@ -98,6 +99,7 @@ fieldset {
   border-radius: 25px;
   border: 2px solid rgba(0, 0, 0, 0.7);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5), -1px -1px 4px 1px rgba(0, 0, 0, 0.5);
+  background-color: #c8ab83;
 }
 
 label {
